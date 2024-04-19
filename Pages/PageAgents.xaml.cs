@@ -20,9 +20,12 @@ namespace Попрыженок.Pages
     /// </summary>
     public partial class PageAgents : Page
     {
+        private List<ProductSale> allAgents;
         public PageAgents()
         {
             InitializeComponent();
+            allAgents = MainWindow.АгенствоПопрыгун.ProductSale.ToList();
+            lvAgents.ItemsSource = allAgents;
         }
     }
 }

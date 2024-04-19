@@ -4,8 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Попрыженок.Pages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="800" FontSize="17" 
       Title="PageAgents">
 
     <Grid>
@@ -16,19 +17,52 @@
         </Grid.RowDefinitions>
         
         <!--Вывод агентов по макету-->
-        <ListView Grid.Row="1" x:Name="lvAgents">
+        <ListView Grid.Row="1" x:Name="lvAgents" FontSize="17" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="20 0" >
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel/>
+                    <StackPanel HorizontalAlignment="Center"/>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" BorderThickness="1">
+                    <Border BorderBrush="Black" BorderThickness="1" Width="900">
                         <!--Основной грид-->
                         <Grid>
-                            <!--Фотка-->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
                             
+                            <!--Фотка-->
+                            <Image Source="{Binding Agent.NewLogo}" Width="150"/>
+                            
+                            <!--Грид для правой части агента (тип, наименование, продажи, телефон, приоритет)-->
+                            <Grid Grid.Column="1" VerticalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <!--СтекПенал для "Тип|Наименование агента"-->
+                                <StackPanel  Orientation="Horizontal" Margin="0 3">
+                                    <TextBlock FontSize="19" Text="{Binding Agent.AgentType.Title}"/>
+                                    <TextBlock FontSize="19" Text=" | "/>
+                                    <TextBlock FontSize="19" Text="{Binding Agent.Title}"/>
+                                </StackPanel>
+                                
+                                <!--Продажи за год-->
+                                <TextBlock Margin="0 3" Grid.Row="1" Text="{Binding ProductCount, StringFormat='{}{0} продаж за год'}"/>
+
+                                <!--Номер телефона-->
+                                <TextBlock Margin="0 3" Grid.Row="2" Text="{Binding Agent.Phone}"/>
+
+                                <!--Приоритетность-->
+                                <TextBlock Margin="0 3" Grid.Row="3" Text="{Binding Agent.Priority, StringFormat={}Приоритетность: {0}}"/>
+                            </Grid>
+                            <!--Скидка-->
+                            <TextBlock Grid.Column="2" Text="Скидка" FontSize="22" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 30 0"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
