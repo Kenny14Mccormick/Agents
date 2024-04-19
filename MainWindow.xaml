@@ -1,0 +1,21 @@
+﻿<Window x:Class="Попрыженок.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Попрыженок"
+        mc:Ignorable="d"
+        Title="Попрыженок" Height="450" Width="800" WindowStartupLocation="CenterScreen" Background="White" FontFamily="Comic Sans MS">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="6*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Button Margin="5 15" Content="Агенты" Foreground="White" Background="#F9969E" x:Name="BtnPageAgents" Click="BtnPageAgents_Click"/>
+            <Button Margin="5 15" Content="Другое" Foreground="White" Background="#F9969E" x:Name="btnElse" Click="btnElse_Click"/>
+        </StackPanel>
+        <Frame Grid.Column="1" x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Window>
