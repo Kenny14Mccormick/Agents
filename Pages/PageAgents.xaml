@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Попрыженок.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800" FontSize="17" 
+      d:DesignHeight="450" d:DesignWidth="800" FontSize="17" Foreground="Black"
       Title="PageAgents">
 
     <Grid>
@@ -15,7 +15,32 @@
             <RowDefinition Height="7*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        
+        <!--Фильтры-->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <StackPanel Orientation="Horizontal" >
+                <materialDesign:PackIcon Kind="Magnify" VerticalAlignment="Center" Height="25" Width="25"/>
+                <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="tbAgentTitle" materialDesign:HintAssist.Hint="Наименование агента" Margin="10 0 5 13"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="5 0">
+                <materialDesign:PackIcon Kind="Magnify" VerticalAlignment="Center" Height="25" Width="25"/>
+                <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="tbEmailPhone" materialDesign:HintAssist.Hint="Email, телефон" Margin="10 0 5 13"/>
+            </StackPanel>
+            <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" x:Name="cbType" materialDesign:HintAssist.Hint="Тип агента" Margin="10 0 5 13"/>
+
+            <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" x:Name="cbTitleSort" materialDesign:HintAssist.Hint="Наименование" Margin="10 0 5 13" SelectedIndex="0">
+                <ComboBoxItem Content="По возрастанию"/>
+                <ComboBoxItem Content="По убыванию"/>
+            </ComboBox>
+            <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" x:Name="cbDiscountSort" materialDesign:HintAssist.Hint="Размер скидки" Margin="10 0 5 13" SelectedIndex="0">
+                <ComboBoxItem Content="По возрастанию"/>
+                <ComboBoxItem Content="По убыванию"/>
+            </ComboBox>
+            <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" x:Name="cbPrioritetSort" materialDesign:HintAssist.Hint="Приоритет агента" Margin="10 0 5 13" SelectedIndex="0">
+                <ComboBoxItem Content="По возрастанию"/>
+                <ComboBoxItem Content="По убыванию"/>
+            </ComboBox>
+            
+        </StackPanel>
         <!--Вывод агентов по макету-->
         <ListView Grid.Row="1" x:Name="lvAgents" FontSize="17" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="20 0" >
             <ListView.ItemsPanel>
@@ -53,7 +78,7 @@
                                 </StackPanel>
                                 
                                 <!--Продажи за год-->
-                                <TextBlock Margin="0 3" Grid.Row="1" Text="{Binding ProductCount, StringFormat='{}{0} продаж за год'}"/>
+                                <TextBlock Margin="0 3" Grid.Row="1" Text="{Binding ProductCount, StringFormat='{}{0} продаж за 10 лет'}"/>
 
                                 <!--Номер телефона-->
                                 <TextBlock Margin="0 3" Grid.Row="2" Text="{Binding Agent.Phone}"/>
@@ -62,12 +87,18 @@
                                 <TextBlock Margin="0 3" Grid.Row="3" Text="{Binding Agent.Priority, StringFormat={}Приоритетность: {0}}"/>
                             </Grid>
                             <!--Скидка-->
-                            <TextBlock Grid.Column="2" Text="Скидка" FontSize="22" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 30 0"/>
+                            <TextBlock Grid.Column="2" Text="{Binding Discount, StringFormat={}{0}%}" FontSize="22" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 30 0"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            
         </ListView>
+        
+        <!--Страницы-->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 70 0">
+            <Button Click="PreviousPage_Click" Content="&lt;" Background="Transparent"/>
+            <WrapPanel x:Name="wpPageNumbers" VerticalAlignment="Center"/>
+            <Button Click="NextPage_Click" Content=">" Background="Transparent"/>
+        </StackPanel>
     </Grid>
 </Page>
