@@ -20,33 +20,7 @@ namespace Попрыженок
         public System.DateTime SaleDate { get; set; }
         public int ProductCount { get; set; }
 
-        public int Discount
-        {
-            get
-            {
-                decimal TotalCost = ProductCount * Product.MinCostForAgent;
-                if (TotalCost >= 0 & TotalCost < 10000)
-                {
-                    return 0;
-                }
-                else if (TotalCost >= 10000 & TotalCost < 50000)
-                {
-                    return 5;
-                }
-                else if (TotalCost >= 50000 & TotalCost < 150000)
-                {
-                    return 10;
-                }
-                else if (TotalCost >= 150000 & TotalCost < 500000)
-                {
-                    return 20;
-                }
-                else
-                {
-                    return 25;
-                }
-            }
-        }
+
         public virtual Agent Agent { get; set; }
         public virtual Product Product { get; set; }
     }

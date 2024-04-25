@@ -11,7 +11,8 @@ namespace Попрыженок
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class Agent
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -34,6 +35,68 @@ namespace Попрыженок
         public string Logo { get; set; }
         public int Priority { get; set; }
     
+        public int Sales
+        {
+            get
+            {
+                return ProductSale.Count;
+            }
+        }
+
+        public int Discount
+        {
+            get
+            {
+                List<ProductSale> temp = ProductSale.ToList();
+
+                decimal summ = 0;
+
+                for (int i = 0; i < temp.Count; i++)
+                {
+                    summ += temp[i].Product.MinCostForAgent * temp[i].ProductCount;
+                }
+
+                if (summ >= 0 && summ < 10000)
+                {
+                    return 0;
+
+                }
+
+                if (summ >= 10000 && summ < 50000)
+                {
+                    return 5;
+                }
+
+                if (summ >= 50000 && summ < 150000)
+                {
+                    return 10;
+                }
+
+                if (summ >= 150000 && summ < 500000)
+                {
+                    return 20;
+                }
+
+                if (summ >= 500000)
+                {
+                    return 25;
+                }
+
+                return 0;
+            }
+        }
+
+        public string DiscountColor
+        {
+            get
+            {
+                if (Discount == 5)
+                {
+                    return "Green";
+                }
+                else return "Black";
+            }
+        }
         public string NewLogo
         {
             get

@@ -1,0 +1,19 @@
+﻿<Window x:Class="Попрыженок.ChangePriorityModalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Попрыженок"
+        mc:Ignorable="d"
+               Title="Изменение приоритета" Height="150" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock Text="Введите новый приоритет:"/>
+            <TextBox x:Name="tbNewPriority" Margin="0 10"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Изменить" Click="Change_Click" Margin="5" Foreground="White" Background="#43DCFE"/>
+                <Button Content="Отмена" Click="Cancel_Click" Margin="5" Foreground="White" Background="#43DCFE" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

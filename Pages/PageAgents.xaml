@@ -14,6 +14,7 @@
             <RowDefinition/>
             <RowDefinition Height="7*"/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <!--Фильтры-->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
@@ -27,22 +28,23 @@
             </StackPanel>
             <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" x:Name="cbType" materialDesign:HintAssist.Hint="Тип агента" Margin="10 0 5 13"/>
 
-            <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" x:Name="cbTitleSort" materialDesign:HintAssist.Hint="Наименование" Margin="10 0 5 13" SelectedIndex="0">
+            <!--Сортировка-->
+            <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"  x:Name="cbTitleSort" materialDesign:HintAssist.Hint="Наименование" Margin="10 0 5 13" SelectedIndex="0">
                 <ComboBoxItem Content="По возрастанию"/>
                 <ComboBoxItem Content="По убыванию"/>
             </ComboBox>
-            <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" x:Name="cbDiscountSort" materialDesign:HintAssist.Hint="Размер скидки" Margin="10 0 5 13" SelectedIndex="0">
+            <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"  x:Name="cbDiscountSort" materialDesign:HintAssist.Hint="Размер скидки" Margin="10 0 5 13" SelectedIndex="0">
                 <ComboBoxItem Content="По возрастанию"/>
                 <ComboBoxItem Content="По убыванию"/>
             </ComboBox>
-            <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" x:Name="cbPrioritetSort" materialDesign:HintAssist.Hint="Приоритет агента" Margin="10 0 5 13" SelectedIndex="0">
+            <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"  x:Name="cbPrioritetSort" materialDesign:HintAssist.Hint="Приоритет агента" Margin="10 0 5 13" SelectedIndex="0">
                 <ComboBoxItem Content="По возрастанию"/>
                 <ComboBoxItem Content="По убыванию"/>
             </ComboBox>
             
         </StackPanel>
         <!--Вывод агентов по макету-->
-        <ListView Grid.Row="1" x:Name="lvAgents" FontSize="17" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="20 0" >
+        <ListView Grid.Row="1" x:Name="lvAgents" FontSize="17" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="20 0" MouseDoubleClick="lvAgents_DoulbeChanged">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel HorizontalAlignment="Center"/>
@@ -60,7 +62,7 @@
                             </Grid.ColumnDefinitions>
                             
                             <!--Фотка-->
-                            <Image Source="{Binding Agent.NewLogo}" Width="150"/>
+                            <Image Source="{Binding NewLogo}" Width="150"/>
                             
                             <!--Грид для правой части агента (тип, наименование, продажи, телефон, приоритет)-->
                             <Grid Grid.Column="1" VerticalAlignment="Center">
@@ -72,30 +74,35 @@
                                 </Grid.RowDefinitions>
                                 <!--СтекПенал для "Тип|Наименование агента"-->
                                 <StackPanel  Orientation="Horizontal" Margin="0 3">
-                                    <TextBlock FontSize="19" Text="{Binding Agent.AgentType.Title}"/>
+                                    <TextBlock FontSize="19" Text="{Binding AgentType.Title}"/>
                                     <TextBlock FontSize="19" Text=" | "/>
-                                    <TextBlock FontSize="19" Text="{Binding Agent.Title}"/>
+                                    <TextBlock FontSize="19" Text="{Binding Title}"/>
                                 </StackPanel>
                                 
                                 <!--Продажи за год-->
-                                <TextBlock Margin="0 3" Grid.Row="1" Text="{Binding ProductCount, StringFormat='{}{0} продаж за 10 лет'}"/>
+                                <TextBlock Margin="0 3" Grid.Row="1" Text="{Binding Sales, StringFormat='{}{0} продаж за все время'}"/>
 
                                 <!--Номер телефона-->
-                                <TextBlock Margin="0 3" Grid.Row="2" Text="{Binding Agent.Phone}"/>
+                                <TextBlock Margin="0 3" Grid.Row="2" Text="{Binding Phone}"/>
 
                                 <!--Приоритетность-->
-                                <TextBlock Margin="0 3" Grid.Row="3" Text="{Binding Agent.Priority, StringFormat={}Приоритетность: {0}}"/>
+                                <TextBlock Margin="0 3" Grid.Row="3" Text="{Binding Priority, StringFormat={}Приоритетность: {0}}"/>
                             </Grid>
                             <!--Скидка-->
-                            <TextBlock Grid.Column="2" Text="{Binding Discount, StringFormat={}{0}%}" FontSize="22" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 30 0"/>
+                            <TextBlock Foreground="{Binding DiscountColor}" Grid.Column="2" Text="{Binding Discount, StringFormat={}{0}%}" FontSize="22" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 30 0"/>
+                            <Button Content="Редактировать" Click="EditAgent_Click" x:Name="btnEditAgent" VerticalAlignment="Bottom" Grid.Column="2" Background="#43DCFE" Foreground="White" Margin="0 0 20 30"/>
                         </Grid>
                     </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" Orientation="Horizontal">
+        <Button Foreground="White"  Background="#43DCFE" IsEnabled="False" x:Name="btnChangePriority" Content="Изменить приоритет на ..." Click="ChangePriority_Click" />
+            <Button Foreground="White"  Background="#43DCFE" x:Name="btnAddAgent" Content="Добавить агента" Click="AddAgent_Click" Margin="20 0 0 0"/>
+        </StackPanel>
         <!--Страницы-->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 70 0">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 70 0" >
             <Button Click="PreviousPage_Click" Content="&lt;" Background="Transparent"/>
             <WrapPanel x:Name="wpPageNumbers" VerticalAlignment="Center"/>
             <Button Click="NextPage_Click" Content=">" Background="Transparent"/>

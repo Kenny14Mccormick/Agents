@@ -84,6 +84,9 @@
     <Compile Include="AgentType.cs">
       <DependentUpon>CoolModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ChangePriorityModalWindow.xaml.cs">
+      <DependentUpon>ChangePriorityModalWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CoolModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -125,6 +128,13 @@
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>CoolModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="WinEditAgent.xaml.cs">
+      <DependentUpon>WinEditAgent.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ChangePriorityModalWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -148,6 +158,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\PageAgents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WinEditAgent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
