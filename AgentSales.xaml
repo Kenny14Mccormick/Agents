@@ -1,0 +1,32 @@
+﻿<Window x:Class="Попрыженок.AgentSales"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Попрыженок"
+        mc:Ignorable="d"
+        Title="AgentSales" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="1" x:Name="dgSales" AutoGenerateColumns="False" ColumnWidth="*" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Продукт" Binding="{Binding Product.Title}"/>
+                <DataGridTextColumn Width="0.5*" Header="Дата продажи" Binding="{Binding SaleDate, StringFormat={}{0:dd/MM/yyyy}}"/>
+                <DataGridTextColumn Width="0.5*" Header="Количество" Binding="{Binding ProductCount}"/>
+                
+                <DataGridTemplateColumn Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Удалить" Click="btnDeleteSale_Click" x:Name="btnDeleteUser" Foreground="White" Background="#43DCFE"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Background="#43DCFE" Foreground="White" Grid.Row="2" HorizontalAlignment="Center" Content="Добавить" Click="btnAddProductSale"/>
+    </Grid>
+</Window>

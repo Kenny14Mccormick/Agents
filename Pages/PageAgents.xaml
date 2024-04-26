@@ -30,14 +30,17 @@
 
             <!--Сортировка-->
             <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"  x:Name="cbTitleSort" materialDesign:HintAssist.Hint="Наименование" Margin="10 0 5 13" SelectedIndex="0">
+                <ComboBoxItem Content="Выкл"/>
                 <ComboBoxItem Content="По возрастанию"/>
                 <ComboBoxItem Content="По убыванию"/>
             </ComboBox>
             <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"  x:Name="cbDiscountSort" materialDesign:HintAssist.Hint="Размер скидки" Margin="10 0 5 13" SelectedIndex="0">
+                <ComboBoxItem Content="Выкл"/>
                 <ComboBoxItem Content="По возрастанию"/>
                 <ComboBoxItem Content="По убыванию"/>
             </ComboBox>
             <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"  x:Name="cbPrioritetSort" materialDesign:HintAssist.Hint="Приоритет агента" Margin="10 0 5 13" SelectedIndex="0">
+                <ComboBoxItem Content="Выкл"/>
                 <ComboBoxItem Content="По возрастанию"/>
                 <ComboBoxItem Content="По убыванию"/>
             </ComboBox>
@@ -52,7 +55,7 @@
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" BorderThickness="1" Width="900">
+                    <Border BorderBrush="Black" BorderThickness="1" Width="900" Height="150">
                         <!--Основной грид-->
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -90,7 +93,8 @@
                             </Grid>
                             <!--Скидка-->
                             <TextBlock Foreground="{Binding DiscountColor}" Grid.Column="2" Text="{Binding Discount, StringFormat={}{0}%}" FontSize="22" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 30 0"/>
-                            <Button Content="Редактировать" Click="EditAgent_Click" x:Name="btnEditAgent" VerticalAlignment="Bottom" Grid.Column="2" Background="#43DCFE" Foreground="White" Margin="0 0 20 30"/>
+                            <Button Content="Продажи" HorizontalAlignment="Right" Width="100" Click="Sales_Click" x:Name="btnSales" VerticalAlignment="Bottom" Grid.Column="1" Background="#43DCFE" Foreground="White" Margin="0 0 20 30"/>
+                            <Button Content="Редактировать" IsEnabled="{Binding IsEditEnabled}" Click="EditAgent_Click" x:Name="btnEditAgent" VerticalAlignment="Bottom" Grid.Column="2" Background="#43DCFE" Foreground="White" Margin="0 0 20 30"/>
                         </Grid>
                     </Border>
                 </DataTemplate>

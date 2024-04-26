@@ -81,6 +81,9 @@
     <Compile Include="AgentPriorityHistory.cs">
       <DependentUpon>CoolModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AgentSales.xaml.cs">
+      <DependentUpon>AgentSales.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AgentType.cs">
       <DependentUpon>CoolModel.tt</DependentUpon>
     </Compile>
@@ -128,9 +131,16 @@
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>CoolModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="WinAddProductSaleForAgent.xaml.cs">
+      <DependentUpon>WinAddProductSaleForAgent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WinEditAgent.xaml.cs">
       <DependentUpon>WinEditAgent.xaml</DependentUpon>
     </Compile>
+    <Page Include="AgentSales.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ChangePriorityModalWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -158,6 +168,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\PageAgents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WinAddProductSaleForAgent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

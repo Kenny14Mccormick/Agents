@@ -33,14 +33,34 @@ namespace Попрыженок
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
+            int newPriority;
+            if (!int.TryParse(tbNewPriority.Text, out newPriority) || newPriority < 0)
+            {
+                MessageBox.Show("Приоритет не может быть отрицательным!");
+                return;
+            }
+
             for (int i = 0; i < selectAgents.Count(); i++)
             {
-                selectAgents[i].Priority = int.Parse(tbNewPriority.Text);
+                // Создаем новую запись об изменении приоритета
+                AgentPriorityHistory history = new AgentPriorityHistory
+                {
+                    AgentID = selectAgents[i].ID,
+                    ChangeDate = DateTime.Now,
+                    PriorityValue = newPriority
+                };
+
+                // Добавляем запись в базу данных
+                MainWindow.АгенствоПопрыгун.AgentPriorityHistory.Add(history);
+
+                // Обновляем приоритет агента
+                selectAgents[i].Priority = newPriority;
             }
 
             MainWindow.АгенствоПопрыгун.SaveChanges();
             Close();
         }
+
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {

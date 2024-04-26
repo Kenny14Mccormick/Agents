@@ -25,10 +25,6 @@ namespace Попрыженок.Pages
         int count = 0;
         List<Agent> allSelect;
 
-        private bool isTitleAscending = true;
-        private bool isDiscountAscending = true;
-        private bool isPriorityAscending = true;
-
         private int currentPageIndex = 0;
         private int itemsPerPage = 10;
 
@@ -65,22 +61,16 @@ namespace Попрыженок.Pages
 
         private void TitleSort_SelectionChanged(object sender, EventArgs e)
         {
-            // Изменение порядка сортировки и применение сортировки
-            isTitleAscending = cbTitleSort.SelectedIndex == 0;
             ApplySort();
         }
 
         private void DiscountSort_SelectionChanged(object sender, EventArgs e)
         {
-            // Изменение порядка сортировки и применение сортировки
-            isDiscountAscending = cbDiscountSort.SelectedIndex == 0;
             ApplySort();
         }
 
         private void PrioritySort_SelectionChanged(object sender, EventArgs e)
         {
-            // Изменение порядка сортировки и применение сортировки
-            isPriorityAscending = cbPrioritetSort.SelectedIndex == 0;
             ApplySort();
         }
 
@@ -90,20 +80,29 @@ namespace Попрыженок.Pages
             var query = filteredAgents.AsQueryable();
 
             // Применяем сортировку для каждого поля
-            if (isTitleAscending)
-                query = query.OrderBy(agent => agent.Title);
-            else
-                query = query.OrderByDescending(agent => agent.Title);
+            if (cbTitleSort.SelectedIndex > 0)
+            {
+                if (cbTitleSort.SelectedIndex == 1)
+                    query = query.OrderBy(agent => agent.Title);
+                else
+                    query = query.OrderByDescending(agent => agent.Title);
+            }
 
-            if (isDiscountAscending)
-                query = query.OrderBy(agent => agent.Discount);
-            else
-                query = query.OrderByDescending(agent => agent.Discount);
+            if (cbDiscountSort.SelectedIndex > 0)
+            {
+                if (cbDiscountSort.SelectedIndex == 1)
+                    query = query.OrderBy(agent => agent.Discount);
+                else
+                    query = query.OrderByDescending(agent => agent.Discount);
+            }
 
-            if (isPriorityAscending)
-                query = query.OrderBy(agent => agent.Priority);
-            else
-                query = query.OrderByDescending(agent => agent.Priority);
+            if (cbPrioritetSort.SelectedIndex > 0)
+            {
+                if (cbPrioritetSort.SelectedIndex == 1)
+                    query = query.OrderBy(agent => agent.Priority);
+                else
+                    query = query.OrderByDescending(agent => agent.Priority);
+            }
 
             // Преобразуем результат сортировки обратно в список
             filteredAgents = query.ToList();
@@ -111,6 +110,9 @@ namespace Попрыженок.Pages
             // Показываем текущую страницу
             ShowCurrentPage();
         }
+
+
+
 
         private void FilterAgents(object sender, EventArgs e)
         {
@@ -217,6 +219,9 @@ namespace Попрыженок.Pages
             winEditAgent.ShowDialog();
             // Обновляем DataGrid
             lvAgents.ItemsSource = null;
+            allAgents = MainWindow.АгенствоПопрыгун.Agent.ToList();
+            sortedAgents = allAgents.ToList();
+            filteredAgents = allAgents.ToList();
             ShowCurrentPage();
         }
 
@@ -225,11 +230,40 @@ namespace Попрыженок.Pages
             var editButton = sender as Button;
             var selectedAgent = editButton.DataContext as Agent;
             WinEditAgent winEditAgent = new WinEditAgent(selectedAgent);
-            editButton.IsEnabled = false;
+            //editButton.IsEnabled = false;
+
+            foreach (var agent in filteredAgents)
+            {
+                agent.IsEditEnabled = false;
+            }
             winEditAgent.ShowDialog();
+
+            //editButton.IsEnabled = true;
+            foreach (var agent in filteredAgents)
+            {
+                agent.IsEditEnabled = true;
+            }
+            // Обновляем DataGrid
+            lvAgents.ItemsSource = null;
+
+            allAgents = MainWindow.АгенствоПопрыгун.Agent.ToList();
+            sortedAgents = allAgents.ToList();
+            filteredAgents = allAgents.ToList();
+
+            ShowCurrentPage();
+        }
+
+        private void Sales_Click(object sender, RoutedEventArgs e)
+        {
+            var editButton = sender as Button;
+            var selectedAgent = editButton.DataContext as Agent;
+            AgentSales agentSales = new AgentSales(selectedAgent);
+            editButton.IsEnabled = false;
+            agentSales.ShowDialog();
             editButton.IsEnabled = true;
             // Обновляем DataGrid
             lvAgents.ItemsSource = null;
+
             ShowCurrentPage();
         }
     }

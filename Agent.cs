@@ -12,8 +12,9 @@ namespace Попрыженок
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.ComponentModel;
 
-    public partial class Agent
+    public class Agent : INotifyPropertyChanged
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Agent()
@@ -22,7 +23,24 @@ namespace Попрыженок
             this.ProductSale = new HashSet<ProductSale>();
             this.Shop = new HashSet<Shop>();
         }
-    
+        private bool _isEditEnabled = true;
+        public bool IsEditEnabled
+        {
+            get { return _isEditEnabled; }
+            set
+            {
+                if (_isEditEnabled != value)
+                {
+                    _isEditEnabled = value;
+                    OnPropertyChanged(nameof(IsEditEnabled));
+                }
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public int ID { get; set; }
         public string Title { get; set; }
         public int AgentTypeID { get; set; }
